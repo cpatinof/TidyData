@@ -68,6 +68,7 @@ act.labels <- read.table("activity_labels.txt", header=FALSE, sep="",
                          col.names=c("Activity","Activity.Desc"))
 DF <- merge(DF,act.labels,"Activity")
 DF <- DF[,c(-1)]
+DF$Activity.Desc <- as.factor(DF$Activity.Desc)
 
 # Summarize and create new table as output (using reshape):
 library(reshape2)
@@ -78,3 +79,22 @@ final.DF <- dcast(melt.DF, Subject + Activity.Desc ~ variable, mean)
 library(dplyr)
 grp.DF <- group_by(DF, Subject, Activity.Desc)
 final.DF2 <- summarise_each(grp.DF, funs(mean))
+
+# Final step: rename final columns to make them more descriptive:
+final.cols <- colnames(final.DF2)
+
+for (i in 1:length(final.cols)) {
+        if (length(grep("-mean()", final.cols[i], fixed=TRUE))!=0) {
+                final.cols[i] <- paste(sub("-mean()", "", final.cols[i],
+                                           fixed=TRUE), "-Mean", sep="")
+        }
+}
+
+for (i in 1:length(final.cols)) {
+        if (length(grep("-std()", final.cols[i], fixed=TRUE))!=0) {
+                final.cols[i] <- paste(sub("-std()", "", final.cols[i],
+                                           fixed=TRUE), "-STD", sep="")
+        }
+}
+
+colnames(final.DF2) <- final.cols
