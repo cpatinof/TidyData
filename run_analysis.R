@@ -98,3 +98,8 @@ for (i in 1:length(final.cols)) {
 }
 
 colnames(final.DF2) <- final.cols
+
+####### Helper code for documentation:
+library(pander)
+test <- data.frame(min=sapply(final.DF2[,c(3:68)],min),max=sapply(final.DF2[,c(3:68)],max))
+pandoc.table(test,style="markdow") # Generates a nice table for CodeBook.md
