@@ -16,4 +16,12 @@ For more information on the dataset, please go to [this site](http://archive.ics
 
 ## Code Description
 
+The code contains the following steps:
 
+1. Read all necessary files into R. These include both Test and Train feature sets, as well as labels (included in the test and train sub-folders), both Test and Train subject files (identifies the subject who performed the given activity, there are 30 subjects in total, and 5 activities), and the features.txt which includes a list of all 561 features. This list is used to provide the intermediate data frame with the appropriate column names.
+2. Use base functions to find only those columns that represent either mean() or std() for each measurement.
+3. Extract only such features from the feature (train and test) data frames.
+4. Column bind all objects: subjects, labels (activities) and features for both train and test sets, and merge both sets to end up with a large data frame that contains all observations and the features of interest.
+5. Check for any missing values.
+6. Use descriptive activity names to name the activities in the data set
+7. Create a second, independent tidy data set with the average of each variable for each activity and each subject. In this section, the code uses to alternative ways of getting the same result: one with the `reshape`package, and another one with the `dplyr` package.
