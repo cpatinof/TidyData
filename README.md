@@ -25,3 +25,9 @@ The code contains the following steps:
 5. Check for any missing values.
 6. Use descriptive activity names to name the activities in the data set
 7. Create a second, independent tidy data set with the average of each variable for each activity and each subject. In this section, the code uses to alternative ways of getting the same result: one with the `reshape`package, and another one with the `dplyr` package.
+
+## Variable Description & Details
+
+CodeBook.md contains a description of the features used in this project, as well as a detailed explanation of any transformation that was performed on the original data.
+
+
