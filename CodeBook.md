@@ -1,15 +1,16 @@
 # CodeBook
+
 Course project for Getting and Cleaning Data course
 
 ## Data Dictionary
 
 The final data set includes a total of 68 columns:
 
-### Subject
+### Subject (Col 1)
 
 Integer variable that indicates the subject who performed the activity. Its value ranges from 1 to 30 since the experiment involved 30 volunteers.
 
-### Activity.Desc
+### Activity.Desc (Col 2)
 
 Factor variable that indicates the activity that was being performed when the measures where captured using the accelerometer and gyroscope. Factor levels are:
 
@@ -44,9 +45,9 @@ The original features include means and standard deviations for the measurements
 * fBodyGyroMag
 * fBodyGyroJerkMag
 
-XYZ is used to denote 3-axial signals in the X, Y, and Z directions. Prefix "t" denote time, and prefix "f" denote frequency domain signals.
+XYZ is used to denote 3-axial signals in the X, Y, and Z directions. Prefix "t" denote time, and prefix "f" denote frequency domain signals. Only measurements with "mean()" and "std()" suffixes are used in this subset.
 
-Therefore, the final data frame contains the following 66 measures:
+Therefore, the final data frame contains the following 66 measures (Cols 3 to 68). Notice columns have been renamed:
 
 |          Mean of Feature        |   min    |    max    |
 |:-------------------------------:|:--------:|:---------:|
@@ -123,6 +124,6 @@ Note that all these measures are normalized to the range -1 to 1.
 
 The tidy data set (`final.DF`) includes the average values of the previous signals for each Subject and Activity. Since there are 30 subjects and a total of 6 activities, the size of the final tidy data frame is 180 columns by 68 rows (two of those corresponding to the indicator variables "Subject" and "Activity"). The transformation is done by using the `reshape2` package and its functions `melt` and `dcast`. The `melt` function takes the original merged data frame whose observations correspond to measures of signals for combinations of subjects and activities at different windows of periods during the experiment, and columns correspond to the means and standard deviations of each one of the aforementioned signals, and generates a long file that in one column puts the value of each measure for each combination Subject-Activity-Window. After that file is created, the `dcast` function summarises the input file by applying a "mean" function on all variables using Subject + Activity as the grouping factors.
 
-An alternative transformation could be performed by using the `group_b` and `summarise_each` functions in the `dplyr` package. The implementation is also shown in the code and both alternatives yield the exact same final data frame with the summary values for Subjects and Activities.
+An alternative transformation could be performed by using the `group_by` and `summarise_each` functions in the `dplyr` package. The implementation is also shown in the code and both alternatives yield the exact same final data frame with the summary values for Subjects and Activities.
 
 Original measures are normalized to be between -1 and 1. The average summary takes those normalized variables and calculates the averages of the measurements for each combination Subject-Activity-Window.
